@@ -1,7 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
+import Card from '../components/Card'
 
 export default function Home() {
 
@@ -10,6 +12,8 @@ export default function Home() {
   const [contener, setContener] = useState('')
   const [disabled, setDisabled] = useState(true)
   const [editabledTodo, setEditabledTodo] = useState(null)
+  const [color, setColor] = useState('#fff')
+
 
   const edit = (item, index) => {
     setEditabledTodo(index)
@@ -23,6 +27,21 @@ export default function Home() {
     
   }
 
+  useEffect(() => {
+    console.log("modification")
+  }, [todolist])
+
+  useEffect(() => {
+    count >= 1 && setColor('#222')
+  }, [count]) 
+
+  useEffect(() => {
+    localStorage.setItem("tudos", todolist)
+    return () => {
+      localStorage.clear()
+    }
+  }, [todolist])   
+
 
   return (
     <div className={styles.container}>
@@ -33,30 +52,28 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1>hello</h1>
-        <h3>count : {count}</h3>
-        <button onClick={() => setCount(prev => prev + 1)}> click</button>
-
-        <input type='text' value={contener} onChange={event => setContener(event.target.value)}></input>
-        <button onClick={() => setTodoList(e => [...e, contener])}>Ajouter à la liste</button>
-
-
-        { todolist.length > 0 && (
-            todolist.map((todo, i) => {
-              
-              return (
-
-                <div key={i}>
-                  <input type='text' onChange={(e) => handleChange(e)} defaultValue={todo} disabled={editabledTodo === i  ? false : true}/>
-                  <button onClick={() => edit(todo, i)}>Edit</button>
-                  <button onClick={() => setTodoList(r => r.filter((item, index) => index !== i))}>Supprimer</button>
-                </div>
-
-              )
-             
-            })
-          )          
-        }
+        <h1>Welcome</h1>
+        <div style={{
+          display : 'flex',
+          justifyContent: 'space-between',
+          margin: '100px'
+        }}>
+          <p>Marketplace</p>
+          <p>Menu</p>
+          <button>Login</button>
+        </div>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between'
+        }}>
+        <Card title="TITRE" desc="description" image="https://images.unsplash.com/photo-1639562471146-45adb126ed96?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" price="21"/>
+        <Card title="TITRE" desc="description" image="https://images.unsplash.com/photo-1639562471146-45adb126ed96?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" price="21"/>
+        <Card title="TITRE" desc="description" image="https://images.unsplash.com/photo-1639562471146-45adb126ed96?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" price="21"/>
+        <Card title="TITRE" desc="description" image="https://images.unsplash.com/photo-1639562471146-45adb126ed96?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" price="21"/>
+        <Card title="TITRE" desc="description" image="https://images.unsplash.com/photo-1639562471146-45adb126ed96?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" price="21"/>
+        <Card title="TITRE" desc="description" image="https://images.unsplash.com/photo-1639562471146-45adb126ed96?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" price="21"/>
+      
+        </div>
         
        </main>
     </div>
